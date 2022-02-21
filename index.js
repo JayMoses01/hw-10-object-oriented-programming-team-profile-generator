@@ -1,62 +1,9 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
-
-
-
-class Employee {
-  constructor(eeName, mgrname, id, email, role){
-    this.eeName = eeName;
-    this.mgrname = mgrname;
-    this.id = id;
-    this.email = email;
-    this.role = role;
-  }
-  getName(){
-    console.log(this.eeName, 'got your name')
-  }
-  getId(){
-    console.log(this.id, 'got your ID')
-  }
-  getEmail(){
-    console.log(this.email, 'got your email')
-  }
-  getRole(){
-    console.log(this.role, 'got your role')
-  }
-}
-
-class Manager extends Employee {
-  officeNumber
-  getRole(){}
-}
-
-class Engineer extends Employee {
-  github
-  getGithub(){}
-  getRole(){}
-}
-
-class Intern extends Employee {
-  school
-  getSchool(){}
-  getRole(){}
-}
-
-
-
-
-var employee = new Employee(eeName, role, id, email);
-var manager = new Manager(officeNumber);
-var engineer = new Engineer();
-var intern = new Intern();
-
-/*
-function getRole(answers) {
-  console.log(answers.role);
-}
-*/
-
-
+const Employee = require('./Employee.js')
+const Manager = require('./Manager.js')
+const Engineer = require('./Engineer.js')
+const Intern = require('./Intern.js')
 
 
 
@@ -73,7 +20,7 @@ const initialPrompt = () => {
   .then((answer) => {
     if (answer.additionalTeam == "Yes") {
       return enterMore();
-    } else (answer.additionalTeam == "No") {
+    } else if (answer.additionalTeam == "No") {
       return;
     }
   });
@@ -93,7 +40,7 @@ const enterMore = () => {
         return promptManager();
       } else if (answer.role == "Engineer") {
         return promptEngineer();
-      } else (answer.role == "Intern") {
+      } else if (answer.role == "Intern") {
         return promptIntern();
       }
   });
@@ -339,6 +286,7 @@ const init = () => {
 
 init();
 
+/*
 const init = () => {
   initialPrompt()
     .then((answers) => {
@@ -347,7 +295,7 @@ const init = () => {
 };
 
 init();
-
+*/
 
 
 
