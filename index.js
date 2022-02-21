@@ -49,7 +49,7 @@ class Intern extends Employee {
 
   }
   getRole(){
-    
+
   }
 }
 
@@ -76,64 +76,58 @@ var intern = new Intern();
 
 const promptUser = () => {
     return inquirer.prompt([
-    // JRM: I'll need to add if/then statements here based on user's selections--to create engineer, manager, or intern cards. Make it so these questions loop
-    
+    // JRM: I'll need to add if/then statements here based on user's selections--to create engineer, manager, or intern cards. Make it so these questions loop again if the user wnats to enter more than one employee.
+      
+    // JRM: Question for all employees.
       {
         type: 'input',
         name: 'eeName',
         message: "What is the employee's name?",
       },
+      // JRM: Question for all employees.
       {
         type: 'list',
         name: 'role',
         message: "What is the employee's role?",
         choices: ["Employee", "Manager", "Engineer", "Intern"]
       },
+      // JRM: Question for all employees.
       {
         type: 'input',
         name: 'mgrname',
         message: "What is the employee's team manager's name?",
       },
-      {
-        type: 'input',
-        name: 'id',
-        message: "What is the employee's Employee ID?",
-      },
-      {
-        type: 'input',
-        name: 'role',
-        message: "What is the employee's role?",
-      },
+      // JRM: Question for all employees.
       {
         type: 'input',
         name: 'email',
         message: "What is the employee's email address?",
       },
+      // JRM: Question for manager role only.
       {
         type: 'input',
         name: 'officeNumber',
         message: "What is the employee's office number?",
       },
+      // JRM: Question for engineer role only.
       {
         type: 'input',
         name: 'github',
         message: "What is the employee's GitHub username?",
       },
+      // JRM: Question for engineer role only.
       {
         type: 'input',
         name: 'githubUrl',
         message: "What is the employee's GitHub URL?",
       },
-      {
-        type: 'input',
-        name: 'linkedin',
-        message: "What is the employee's LinkedIn URL?",
-      },
+      // JRM: Question for intern role only.
       {
         type: 'input',
         name: 'school',
         message: "What is the name of the employee's school?",
       },
+      // JRM: Question for all employees.
       {
         type: 'list',
         name: 'finished',
