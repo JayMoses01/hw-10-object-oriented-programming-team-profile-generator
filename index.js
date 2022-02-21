@@ -18,7 +18,8 @@ const initialPrompt = () => {
   .then((answers) => {
     if (answers.additionalTeam == "Yes") {
       return enterMore();
-    } else if (answer.additionalTeam == "No") {
+    } else if (answers.additionalTeam == "No") {
+      console.log(answers);
       return;
     }
   });
@@ -72,11 +73,34 @@ const promptManager = () => {
       name: 'officeNumber',
       message: "What is the employee's office number?",
     },
-  ]);
+  ])
+  .then((answers) => {
+    return initialPrompt();
+  });
 };
 
 const promptEngineer = () => {
   return inquirer.prompt([
+    {
+      type: 'input',
+      name: 'eeName',
+      message: "What is the employee's name?",
+    },
+    {
+      type: 'input',
+      name: 'id',
+      message: "What is the employee's ID?",
+    },
+    {
+      type: 'input',
+      name: 'mgrname',
+      message: "What is the employee's team manager's name?",
+    },
+    {
+      type: 'input',
+      name: 'email',
+      message: "What is the employee's email address?",
+    },
     // JRM: Question for engineer role only.
     {
       type: 'input',
@@ -89,61 +113,48 @@ const promptEngineer = () => {
       name: 'githubUrl',
       message: "What is the employee's GitHub URL?",
     },
-    // JRM: Question for intern role only.
-    {
-      type: 'input',
-      name: 'school',
-      message: "What is the name of the employee's school?",
-    },
-  ]);
+  ])
+  .then((answers) => {
+    return initialPrompt();
+  });
 };
 
 const promptIntern = () => {
   return inquirer.prompt([
-    
+    {
+      type: 'input',
+      name: 'eeName',
+      message: "What is the employee's name?",
+    },
+    {
+      type: 'input',
+      name: 'id',
+      message: "What is the employee's ID?",
+    },
+    {
+      type: 'input',
+      name: 'mgrname',
+      message: "What is the employee's team manager's name?",
+    },
+    {
+      type: 'input',
+      name: 'email',
+      message: "What is the employee's email address?",
+    },
     // JRM: Question for intern role only.
     {
       type: 'input',
       name: 'school',
       message: "What is the name of the employee's school?",
     },
-  ]);
+  ])
+  .then((answers) => {
+    return initialPrompt();
+  });
 };
 
 
-// JRM: Const variables for each type of card: Employee, Manager, Engineer, and Intern.
-const employeeCard = `
-<!--Employee card for an employee-->
-<div class="column is-3 ml-0" id="employee-card">
-    <div class="card" >
-        <header class="card-header has-background-grey-light">
-            <p class="card-header-title is-size-2">
-            Name
-            </p>
-
-        </header>
-        <div class="card-content">
-            <p class="subtitle is-size-3 has-text-weight-bold">
-                Employee
-                </p>
-            <div class="content" id="team-mgr-name">
-            Team manager's name: 
-            </div>
-            <div class="content" id="id">
-            ID: 
-            </div>
-            <div class="content" id="email">
-            Email: 
-            <a href="email@email.com">JayRMoses@gmail.com</a>
-            </div>
-            <div class="content" id="phone">
-            Office number: 
-            </div>
-        </div>
-        </div>
-</div>
-`
-
+// JRM: Const variables for each type of card: Manager, Engineer, and Intern.
 const managerCard = `
 <!--Employee card for a manager-->
 <div class="column is-3 ml-0" id="manager-card">
@@ -244,6 +255,17 @@ const internCard = `
 </div>
 `
 
+function cardType(answers) {
+  if (answers.role == "Manager") {
+    var card = managerCard;
+  } else if (answers.role == "Engineer") {
+    var card = engineerCard;
+  } else if (answers.role == "Intern") {
+    var card = internCard;
+  }
+  return card;
+}
+
   const generateHTML = (answers) =>
   // JRM: Might need to also do if/then statements to return different HTML based on whether engineer, manager, or intern cards need to be created.
   `<!DOCTYPE html>
@@ -264,7 +286,8 @@ const internCard = `
     <section class="container">
         <div class="columns ml-0">
 
-
+          ${cardType(answers)}
+          ${cardType(answers)}
 
         </div>
 
@@ -284,16 +307,7 @@ const init = () => {
 
 init();
 
-/*
-const init = () => {
-  initialPrompt()
-    .then((answers) => {
-      if (answers.)
-    }
-};
 
-init();
-*/
 
 
 
