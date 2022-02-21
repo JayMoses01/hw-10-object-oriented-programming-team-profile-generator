@@ -168,7 +168,7 @@ const managerCard = `
     <div class="card" >
         <header class="card-header has-background-grey-light">
           <p class="card-header-title is-size-2">
-            Name
+            ${allEmployees.name}
           </p>
 
         </header>
@@ -177,17 +177,17 @@ const managerCard = `
                 Manager
               </p>
             <div class="content" id="team-mgr-name">
-            Team manager's name: 
+            Team manager's name: ${allEmployees.mgrname}
             </div>
           <div class="content" id="id">
-            ID: 
+            ID: ${allEmployees.id}
           </div>
           <div class="content" id="email">
-            Email: 
+            Email: ${allEmployees.email}
             <a href="email@email.com">JayRMoses@gmail.com</a>
           </div>
-          <div class="content" id="phone">
-            Office number: 
+          <div class="content" id="office-number">
+            Office number: ${allEmployees.officeNumber}
           </div>
         </div>
       </div>
@@ -200,7 +200,7 @@ const engineerCard = `
     <div class="card">
         <header class="card-header has-background-grey-light">
           <p class="card-header-title is-size-2">
-            Name
+            ${allEmployees.name}
           </p>
 
         </header>
@@ -209,19 +209,19 @@ const engineerCard = `
                 Engineer
               </p>
             <div class="content" id="team-mgr-name">
-            Team manager's name: 
+            Team manager's name: ${allEmployees.mgrname}
             </div>
           <div class="content" id="id">
-            ID: 
+            ID: ${allEmployees.id}
           </div>
           <div class="content" id="email">
-            Email: 
+            Email: ${allEmployees.email}
           </div>
           <div class="content" id="office-number">
             Office number: 
           </div>
           <div class="content" id="github-username">
-            GitHub username: 
+            GitHub username: ${allEmployees.github}
           </div>
         </div>
       </div>
@@ -234,7 +234,7 @@ const internCard = `
     <div class="card">
         <header class="card-header has-background-grey-light">
           <p class="card-header-title is-size-2">
-            Name
+            ${allEmployees.name}
           </p>
 
         </header>
@@ -243,36 +243,36 @@ const internCard = `
                 Intern
               </p>
             <div class="content" id="team-mgr-name">
-            Team manager's name: 
+            Team manager's name: ${allEmployees.mgrname}
             </div>
           <div class="content" id="id">
-            ID: 
+            ID: ${allEmployees.id}
           </div>
           <div class="content" id="email">
-            Email: 
+            Email: ${allEmployees.email}
           </div>
           <div class="content" id="office-number">
             Office number: 
           </div>
           <div class="content" id="school">
-            School: 
+            School: ${allEmployees.school}
           </div>
         </div>
       </div>
 </div>
 `
-/*
-function cardType(answers) {
-  if (answers.role == "Manager") {
+
+function cardType(allEmployees) {
+  if (allEmployees.role == "Manager") {
     var card = managerCard;
-  } else if (answers.role == "Engineer") {
+  } else if (allEmployees.role == "Engineer") {
     var card = engineerCard;
-  } else if (answers.role == "Intern") {
+  } else if (allEmployees.role == "Intern") {
     var card = internCard;
   }
   return card;
 }
-*/
+
 
   const generateHTML = (allEmployees) =>
   // JRM: Might need to also do if/then statements to return different HTML based on whether engineer, manager, or intern cards need to be created.
@@ -294,7 +294,7 @@ function cardType(answers) {
     <section class="container">
         <div class="columns ml-0">
 
-
+        ${cardType(allEmployees)}
         
 
         </div>
