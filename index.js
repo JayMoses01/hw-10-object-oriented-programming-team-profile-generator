@@ -30,17 +30,17 @@ const enterMore = () => {
     return inquirer.prompt([
       {
         type: 'list',
-        name: 'role',
+        name: 'initrole',
         message: "What is the employee's role?",
         choices: ["Manager", "Engineer", "Intern"]
       },
     ])
     .then((answers) => {
-      if (answers.role == "Manager") {
+      if (answers.initrole == "Manager") {
         return promptManager();
-      } else if (answers.role == "Engineer") {
+      } else if (answers.initrole == "Engineer") {
         return promptEngineer();
-      } else if (answers.role == "Intern") {
+      } else if (answers.initrole == "Intern") {
         return promptIntern();
       }
   });
@@ -48,6 +48,12 @@ const enterMore = () => {
 
 const promptManager = () => {
   return inquirer.prompt([
+    {
+      type: 'list',
+      name: 'role',
+      message: "Confirm employee's role is 'Manager'",
+      choices: ["Manager", "Go back to menu"]
+    },
     {
       type: 'input',
       name: 'eeName',
@@ -76,14 +82,24 @@ const promptManager = () => {
     },
   ])
   .then((answers) => {
-    const manager = new Manager(answers.eeName, answers.mgrname, answers.id, answers.email, answers.officeNumber);
-    allEmployees.push(manager);
-    return initialPrompt();
+    if (answers.role !== "Manager"){
+      return initialPrompt();
+    } else if (answers.role == "Manager"){
+        const manager = new Manager(answers.role, answers.eeName, answers.mgrname, answers.id, answers.email, answers.officeNumber);
+        allEmployees.push(manager);
+        return initialPrompt();
+    }
   });
 };
 
 const promptEngineer = () => {
   return inquirer.prompt([
+    {
+      type: 'list',
+      name: 'role',
+      message: "Confirm employee's role is 'Engineer'",
+      choices: ["Engineer", "Go back to menu"]
+    },
     {
       type: 'input',
       name: 'eeName',
@@ -118,14 +134,24 @@ const promptEngineer = () => {
     },
   ])
   .then((answers) => {
-    const engineer = new Engineer(answers.eeName, answers.mgrname, answers.id, answers.email, answers.github, answers.githubUrl);
-    allEmployees.push(engineer);
-    return initialPrompt();
+    if (answers.role !== "Engineer"){
+      return initialPrompt();
+    } else if (answers.role == "Engineer"){
+        const engineer = new Engineer(answers.role, answers.eeName, answers.mgrname, answers.id, answers.email, answers.github, answers.githubUrl);
+        allEmployees.push(engineer);
+        return initialPrompt();
+    }
   });
 };
 
 const promptIntern = () => {
   return inquirer.prompt([
+    {
+      type: 'confirm',
+      name: 'role',
+      message: "Confirm employee's role is 'Intern'",
+      choices: ["Intern", "Go back to menu"]
+    },
     {
       type: 'input',
       name: 'eeName',
@@ -154,9 +180,13 @@ const promptIntern = () => {
     },
   ])
   .then((answers) => {
-    const intern = new Intern(answers.eeName, answers.mgrname, answers.id, answers.email, answers.school);
-    allEmployees.push(intern);
-    return initialPrompt();
+    if (answers.role !== "Intern"){
+      return initialPrompt();
+    } else if (answers.role == "Intern"){
+        const intern = new Intern(answers.role, answers.eeName, answers.mgrname, answers.id, answers.email, answers.school);
+        allEmployees.push(intern);
+        return initialPrompt();
+    }
   });
 };
 
