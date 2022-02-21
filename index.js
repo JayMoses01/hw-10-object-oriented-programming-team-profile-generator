@@ -4,14 +4,14 @@ const fs = require('fs');
 
 
 class Employee {
-  constructor(name, mgrname, id, email){
-    this.name = name;
+  constructor(eeName, mgrname, id, email){
+    this.eeName = eeName;
     this.mgrname = mgrname;
     this.id = id;
     this.email = email;
   }
   getName(){
-    console.log(this.name, 'got your name')
+    console.log(this.eeName, 'got your name')
   }
   getId(){
 
@@ -26,23 +26,38 @@ class Employee {
 
 
 class Manager extends Employee {
+  officeNumber
+  getRole(){
 
+  }
 }
 
 
 class Engineer extends Employee {
+  github
+  getGithub(){
 
+  }
+  getRole(){
+
+  }
 }
 
 class Intern extends Employee {
+  school
+  getSchool(){
 
+  }
+  getRole(){
+    
+  }
 }
 
 
 
 
-var employee = new Employee();
-var manager = new Manager();
+var employee = new Employee(eeName, role, id, email, officeNumber);
+var manager = new Manager(officeNumber);
 var engineer = new Engineer();
 var intern = new Intern();
 
@@ -65,8 +80,14 @@ const promptUser = () => {
     
       {
         type: 'input',
-        name: 'name',
+        name: 'eeName',
         message: "What is the employee's name?",
+      },
+      {
+        type: 'list',
+        name: 'role',
+        message: "What is the employee's role?",
+        choices: ["Employee", "Manager", "Engineer", "Intern"]
       },
       {
         type: 'input',
@@ -90,7 +111,7 @@ const promptUser = () => {
       },
       {
         type: 'input',
-        name: 'office',
+        name: 'officeNumber',
         message: "What is the employee's office number?",
       },
       {
@@ -112,6 +133,11 @@ const promptUser = () => {
         type: 'input',
         name: 'school',
         message: "What is the name of the employee's school?",
+      },
+      {
+        type: 'list',
+        name: 'finished',
+        message: "Would you like to enter any other employees?",
       },
     ]);
   };
