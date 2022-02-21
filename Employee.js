@@ -7,16 +7,16 @@ class Employee {
       this.answers.role = role;
     }
     getName(){
-      console.log(this.answers.eeName, 'got your name')
+      console.log(this.answers.eeName, 'Name received')
     }
     getId(){
-      console.log(this.answers.id, 'got your ID')
+      console.log(this.answers.id, 'ID received')
     }
     getEmail(){
-      console.log(this.answers.email, 'got your email')
+      console.log(this.answers.email, 'Email received')
     }
     getRole(){
-      console.log(this.answers.role, 'got your role')
+      console.log(this.answers.role, 'Role received')
     }
   }
 

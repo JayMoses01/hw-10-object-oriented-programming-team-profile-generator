@@ -6,8 +6,6 @@ const Engineer = require('./Engineer.js')
 const Intern = require('./Intern.js')
 
 
-
-
 const initialPrompt = () => {
   return inquirer.prompt([
     {
@@ -17,8 +15,8 @@ const initialPrompt = () => {
       choices: ["Yes","No"]
     },
   ])
-  .then((answer) => {
-    if (answer.additionalTeam == "Yes") {
+  .then((answers) => {
+    if (answers.additionalTeam == "Yes") {
       return enterMore();
     } else if (answer.additionalTeam == "No") {
       return;
@@ -35,12 +33,12 @@ const enterMore = () => {
         choices: ["Manager", "Engineer", "Intern"]
       },
     ])
-    .then((answer) => {
-      if (answer.role == "Manager") {
+    .then((answers) => {
+      if (answers.role == "Manager") {
         return promptManager();
-      } else if (answer.role == "Engineer") {
+      } else if (answers.role == "Engineer") {
         return promptEngineer();
-      } else if (answer.role == "Intern") {
+      } else if (answers.role == "Intern") {
         return promptIntern();
       }
   });
