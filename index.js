@@ -61,13 +61,13 @@ const promptManager = () => {
     },
     {
       type: 'input',
-      name: 'id',
-      message: "What is the employee's ID?",
+      name: 'mgrname',
+      message: "What is the employee's team manager's name?",
     },
     {
       type: 'input',
-      name: 'mgrname',
-      message: "What is the employee's team manager's name?",
+      name: 'id',
+      message: "What is the employee's ID?",
     },
     {
       type: 'input',
@@ -107,13 +107,13 @@ const promptEngineer = () => {
     },
     {
       type: 'input',
-      name: 'id',
-      message: "What is the employee's ID?",
+      name: 'mgrname',
+      message: "What is the employee's team manager's name?",
     },
     {
       type: 'input',
-      name: 'mgrname',
-      message: "What is the employee's team manager's name?",
+      name: 'id',
+      message: "What is the employee's ID?",
     },
     {
       type: 'input',
@@ -159,13 +159,13 @@ const promptIntern = () => {
     },
     {
       type: 'input',
-      name: 'id',
-      message: "What is the employee's ID?",
+      name: 'mgrname',
+      message: "What is the employee's team manager's name?",
     },
     {
       type: 'input',
-      name: 'mgrname',
-      message: "What is the employee's team manager's name?",
+      name: 'id',
+      message: "What is the employee's ID?",
     },
     {
       type: 'input',
@@ -291,7 +291,7 @@ const internCard = `
       </div>
 </div>
 `
-
+/*
 function cardType(allEmployees) {
   if (allEmployees.role == "Manager") {
     var card = managerCard;
@@ -302,9 +302,24 @@ function cardType(allEmployees) {
   }
   return card;
 }
+*/
+
+function cardType(newArr) {
+  newArr=allEmployees
+ console.log('here is newArr:', newArr)
+ if (newArr.role == "Manager") {
+   var card = managerCard;
+ } else if (newArr.role == "Engineer") {
+   var card = engineerCard;
+ } else if (newArr.role == "Intern") {
+   var card = internCard;
+ }
+ return card;
+}
 
 
-  const generateHTML = (allEmployees) =>
+
+  const generateHTML = (newArr) =>
   // JRM: Might need to also do if/then statements to return different HTML based on whether engineer, manager, or intern cards need to be created.
   `<!DOCTYPE html>
 <html lang="en">
@@ -324,7 +339,7 @@ function cardType(allEmployees) {
     <section class="container">
         <div class="columns ml-0">
 
-        ${cardType(allEmployees)}
+        ${cardType(newArr)}
         
 
         </div>
