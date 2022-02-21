@@ -299,7 +299,7 @@ const internCard = `
 </div>
 `
 
-  const generateHTML = ({ name, location, github, linkedin }) =>
+  const generateHTML = (answers) =>
   // JRM: Might need to also do if/then statements to return different HTML based on whether engineer, manager, or intern cards need to be created.
   `<!DOCTYPE html>
 <html lang="en">
@@ -328,25 +328,25 @@ const internCard = `
 </html>
 
 
-  `;
+`;
 
-  const init = () => {
-    initialPrompt()
-      .then((answers) => fs.writeFileSync('index.html', generateHTML(answers)))
-      .then(() => console.log('Successfully wrote to index.html'))
-      .catch((err) => console.error(err));
-  };
-  
-  init();
+const init = () => {
+  initialPrompt()
+    .then((answers) => fs.writeFileSync('index.html', generateHTML(answers)))
+    .then(() => console.log('Successfully wrote to index.html'))
+    .catch((err) => console.error(err));
+};
 
-  const init = () => {
-    initialPrompt()
-      .then((answers) => {
-        if (answers.)
-      }
-  };
-  
-  init();
+init();
+
+const init = () => {
+  initialPrompt()
+    .then((answers) => {
+      if (answers.)
+    }
+};
+
+init();
 
 
 
