@@ -4,137 +4,167 @@ const fs = require('fs');
 
 
 class Employee {
-  constructor(eeName, mgrname, id, email){
+  constructor(eeName, mgrname, id, email, role){
     this.eeName = eeName;
     this.mgrname = mgrname;
     this.id = id;
     this.email = email;
+    this.role = role;
   }
   getName(){
     console.log(this.eeName, 'got your name')
   }
   getId(){
-
+    console.log(this.id, 'got your ID')
   }
   getEmail(){
-
+    console.log(this.email, 'got your email')
   }
   getRole(){
-
+    console.log(this.role, 'got your role')
   }
 }
-
 
 class Manager extends Employee {
   officeNumber
-  getRole(){
-
-  }
+  getRole(){}
 }
-
 
 class Engineer extends Employee {
   github
-  getGithub(){
-
-  }
-  getRole(){
-
-  }
+  getGithub(){}
+  getRole(){}
 }
 
 class Intern extends Employee {
   school
-  getSchool(){
-
-  }
-  getRole(){
-
-  }
+  getSchool(){}
+  getRole(){}
 }
 
 
 
 
-var employee = new Employee(eeName, role, id, email, officeNumber);
+var employee = new Employee(eeName, role, id, email);
 var manager = new Manager(officeNumber);
 var engineer = new Engineer();
 var intern = new Intern();
 
+/*
+function getRole(answers) {
+  console.log(answers.role);
+}
+*/
 
 
 
 
 
 
+const initialPrompt = () => {
+  return inquirer.prompt([
+    {
+      type: "list",
+      name: "additionalTeam",
+      message: "Would you like to create one or more employee cards?",
+      choices: ["Yes","No"]
+    },
+  ])
+  .then((answer) => {
+    if (answer.additionalTeam == "Yes") {
+      return enterMore();
+    } else (answer.additionalTeam == "No") {
+      return;
+    }
+  });
+};
 
-
-
-
-
-
-
-const promptUser = () => {
+const enterMore = () => {
     return inquirer.prompt([
-    // JRM: I'll need to add if/then statements here based on user's selections--to create engineer, manager, or intern cards. Make it so these questions loop again if the user wnats to enter more than one employee.
-      
-    // JRM: Question for all employees.
-      {
-        type: 'input',
-        name: 'eeName',
-        message: "What is the employee's name?",
-      },
-      // JRM: Question for all employees.
       {
         type: 'list',
         name: 'role',
         message: "What is the employee's role?",
-        choices: ["Employee", "Manager", "Engineer", "Intern"]
+        choices: ["Manager", "Engineer", "Intern"]
       },
-      // JRM: Question for all employees.
-      {
-        type: 'input',
-        name: 'mgrname',
-        message: "What is the employee's team manager's name?",
-      },
-      // JRM: Question for all employees.
-      {
-        type: 'input',
-        name: 'email',
-        message: "What is the employee's email address?",
-      },
-      // JRM: Question for manager role only.
-      {
-        type: 'input',
-        name: 'officeNumber',
-        message: "What is the employee's office number?",
-      },
-      // JRM: Question for engineer role only.
-      {
-        type: 'input',
-        name: 'github',
-        message: "What is the employee's GitHub username?",
-      },
-      // JRM: Question for engineer role only.
-      {
-        type: 'input',
-        name: 'githubUrl',
-        message: "What is the employee's GitHub URL?",
-      },
-      // JRM: Question for intern role only.
-      {
-        type: 'input',
-        name: 'school',
-        message: "What is the name of the employee's school?",
-      },
-      // JRM: Question for all employees.
-      {
-        type: 'list',
-        name: 'finished',
-        message: "Would you like to enter any other employees?",
-      },
-    ]);
-  };
+    ])
+    .then((answer) => {
+      if (answer.role == "Manager") {
+        return promptManager();
+      } else if (answer.role == "Engineer") {
+        return promptEngineer();
+      } else (answer.role == "Intern") {
+        return promptIntern();
+      }
+  });
+};
+
+const promptManager = () => {
+  return inquirer.prompt([
+    {
+      type: 'input',
+      name: 'eeName',
+      message: "What is the employee's name?",
+    },
+    {
+      type: 'input',
+      name: 'id',
+      message: "What is the employee's ID?",
+    },
+    {
+      type: 'input',
+      name: 'mgrname',
+      message: "What is the employee's team manager's name?",
+    },
+    {
+      type: 'input',
+      name: 'email',
+      message: "What is the employee's email address?",
+    },
+    // JRM: Question for manager role only.
+    {
+      type: 'input',
+      name: 'officeNumber',
+      message: "What is the employee's office number?",
+    },
+  ]);
+};
+
+const promptEngineer = () => {
+  return inquirer.prompt([
+    // JRM: Question for engineer role only.
+    {
+      type: 'input',
+      name: 'github',
+      message: "What is the employee's GitHub username?",
+    },
+    // JRM: Question for engineer role only.
+    {
+      type: 'input',
+      name: 'githubUrl',
+      message: "What is the employee's GitHub URL?",
+    },
+    // JRM: Question for intern role only.
+    {
+      type: 'input',
+      name: 'school',
+      message: "What is the name of the employee's school?",
+    },
+  ]);
+};
+
+const promptIntern = () => {
+  return inquirer.prompt([
+    
+    // JRM: Question for intern role only.
+    {
+      type: 'input',
+      name: 'school',
+      message: "What is the name of the employee's school?",
+    },
+  ]);
+};
+
 
 // JRM: Const variables for each type of card: Employee, Manager, Engineer, and Intern.
 const employeeCard = `
@@ -269,11 +299,6 @@ const internCard = `
 </div>
 `
 
-
-
-
-
-
   const generateHTML = ({ name, location, github, linkedin }) =>
   // JRM: Might need to also do if/then statements to return different HTML based on whether engineer, manager, or intern cards need to be created.
   `<!DOCTYPE html>
@@ -294,99 +319,7 @@ const internCard = `
     <section class="container">
         <div class="columns ml-0">
 
-            <!--Employee card for a manager-->
-            <div class="column is-3 ml-0" id="manager-card">
-                <div class="card" >
-                    <header class="card-header has-background-grey-light">
-                      <p class="card-header-title is-size-2">
-                        Name
-                      </p>
 
-                    </header>
-                    <div class="card-content">
-                        <p class="subtitle is-size-3 has-text-weight-bold">
-                            Manager
-                          </p>
-                        <div class="content" id="team-mgr-name">
-                        Team manager's name: 
-                        </div>
-                      <div class="content" id="id">
-                        ID: 
-                      </div>
-                      <div class="content" id="email">
-                        Email: 
-                        <a href="email@email.com">JayRMoses@gmail.com</a>
-                      </div>
-                      <div class="content" id="phone">
-                        Office number: 
-                      </div>
-                    </div>
-                  </div>
-            </div>
-
-            <!--Employee card for an engineer-->
-            <div class="column is-3 ml-0" id="engineer-card">
-                <div class="card">
-                    <header class="card-header has-background-grey-light">
-                      <p class="card-header-title is-size-2">
-                        Name
-                      </p>
-
-                    </header>
-                    <div class="card-content">
-                        <p class="subtitle is-size-3 has-text-weight-bold">
-                            Engineer
-                          </p>
-                        <div class="content" id="team-mgr-name">
-                        Team manager's name: 
-                        </div>
-                      <div class="content" id="id">
-                        ID: 
-                      </div>
-                      <div class="content" id="email">
-                        Email: 
-                      </div>
-                      <div class="content" id="office-number">
-                        Office number: 
-                      </div>
-                      <div class="content" id="github-username">
-                        GitHub username: 
-                      </div>
-                    </div>
-                  </div>
-            </div>
-
-            <!--Employee card for an intern-->
-            <div class="column is-3 ml-0" id="intern-card">
-                <div class="card">
-                    <header class="card-header has-background-grey-light">
-                      <p class="card-header-title is-size-2">
-                        Name
-                      </p>
-
-                    </header>
-                    <div class="card-content">
-                        <p class="subtitle is-size-3 has-text-weight-bold">
-                            Intern
-                          </p>
-                        <div class="content" id="team-mgr-name">
-                        Team manager's name: 
-                        </div>
-                      <div class="content" id="id">
-                        ID: 
-                      </div>
-                      <div class="content" id="email">
-                        Email: 
-                      </div>
-                      <div class="content" id="office-number">
-                        Office number: 
-                      </div>
-                      <div class="content" id="school">
-                        School: 
-                      </div>
-                    </div>
-                  </div>
-            </div>
 
         </div>
 
@@ -398,10 +331,27 @@ const internCard = `
   `;
 
   const init = () => {
-    promptUser()
+    initialPrompt()
       .then((answers) => fs.writeFileSync('index.html', generateHTML(answers)))
       .then(() => console.log('Successfully wrote to index.html'))
       .catch((err) => console.error(err));
   };
   
   init();
+
+  const init = () => {
+    initialPrompt()
+      .then((answers) => {
+        if (answers.)
+      }
+  };
+  
+  init();
+
+
+
+
+
+
+
+
