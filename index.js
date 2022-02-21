@@ -4,6 +4,7 @@ const Employee = require('./Employee.js')
 const Manager = require('./Manager.js')
 const Engineer = require('./Engineer.js')
 const Intern = require('./Intern.js')
+var allEmployees = [];
 
 
 const initialPrompt = () => {
@@ -75,6 +76,7 @@ const promptManager = () => {
     },
   ])
   .then((answers) => {
+    const manager = new Manager(answers.eeName, answers.mgrname, answers.id, answers.email, answers.officeNumber);
     return initialPrompt();
   });
 };
@@ -115,6 +117,7 @@ const promptEngineer = () => {
     },
   ])
   .then((answers) => {
+    const engineer = new Engineer(answers.eeName, answers.mgrname, answers.id, answers.email, answers.github, answers.githubUrl);
     return initialPrompt();
   });
 };
@@ -149,6 +152,7 @@ const promptIntern = () => {
     },
   ])
   .then((answers) => {
+    const intern = new Intern(answers.eeName, answers.mgrname, answers.id, answers.email, answers.school);
     return initialPrompt();
   });
 };
