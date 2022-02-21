@@ -20,8 +20,6 @@ class Employee {
     }
   }
 
-const employee = new Employee(answers.eeName, answers.role, answers.id, answers.email);
-
 module.exports = Employee;
 
 

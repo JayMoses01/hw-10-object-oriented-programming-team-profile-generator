@@ -7,9 +7,8 @@ class Manager extends Employee {
     getRole(){}
   }
 
-const manager = new Manager(officeNumber);
 
-manager.getRole();
+//Manager.getRole();
 
 
 

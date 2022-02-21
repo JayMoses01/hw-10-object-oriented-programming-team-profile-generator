@@ -8,10 +8,9 @@ class Engineer extends Employee {
     getRole(){}
   }
 
-const engineer = new Engineer(answers.github);
 
-engineer.getGithub();
-engineer.getRole();
+//Engineer.getGithub();
+//Engineer.getRole();
 
 
 

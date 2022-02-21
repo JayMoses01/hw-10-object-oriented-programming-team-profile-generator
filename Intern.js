@@ -8,10 +8,8 @@ class Intern extends Employee {
     getRole(){}
   }
 
-const intern = new Intern();
-
-intern.getSchool();
-intern.getRole();
+//Intern.getSchool();
+//Intern.getRole();
 
 
 
