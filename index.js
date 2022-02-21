@@ -20,7 +20,7 @@ const initialPrompt = () => {
     if (answers.additionalTeam == "Yes") {
       return enterMore();
     } else if (answers.additionalTeam == "No") {
-      console.log(answers);
+      console.log(allEmployees);
       return;
     }
   });
@@ -77,6 +77,7 @@ const promptManager = () => {
   ])
   .then((answers) => {
     const manager = new Manager(answers.eeName, answers.mgrname, answers.id, answers.email, answers.officeNumber);
+    allEmployees.push(manager);
     return initialPrompt();
   });
 };
@@ -118,6 +119,7 @@ const promptEngineer = () => {
   ])
   .then((answers) => {
     const engineer = new Engineer(answers.eeName, answers.mgrname, answers.id, answers.email, answers.github, answers.githubUrl);
+    allEmployees.push(engineer);
     return initialPrompt();
   });
 };
@@ -153,6 +155,7 @@ const promptIntern = () => {
   ])
   .then((answers) => {
     const intern = new Intern(answers.eeName, answers.mgrname, answers.id, answers.email, answers.school);
+    allEmployees.push(intern);
     return initialPrompt();
   });
 };
@@ -258,7 +261,7 @@ const internCard = `
       </div>
 </div>
 `
-
+/*
 function cardType(answers) {
   if (answers.role == "Manager") {
     var card = managerCard;
@@ -269,8 +272,9 @@ function cardType(answers) {
   }
   return card;
 }
+*/
 
-  const generateHTML = (answers) =>
+  const generateHTML = (allEmployees) =>
   // JRM: Might need to also do if/then statements to return different HTML based on whether engineer, manager, or intern cards need to be created.
   `<!DOCTYPE html>
 <html lang="en">
@@ -290,8 +294,8 @@ function cardType(answers) {
     <section class="container">
         <div class="columns ml-0">
 
-          ${cardType(answers)}
-          ${cardType(answers)}
+
+        
 
         </div>
 

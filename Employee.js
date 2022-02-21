@@ -1,10 +1,10 @@
 class Employee {
     constructor(eeName, mgrname, id, email, role){
-      this.answers.eeName = eeName;
-      this.answers.mgrname = mgrname;
-      this.answers.id = id;
-      this.answers.email = email;
-      this.answers.role = role;
+      this.eeName = eeName;
+      this.mgrname = mgrname;
+      this.id = id;
+      this.email = email;
+      this.role = role;
     }
     getName(){
       console.log(this.answers.eeName, 'Name received')
