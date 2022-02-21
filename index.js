@@ -192,7 +192,7 @@ const promptIntern = () => {
 
 
 // JRM: Const variables for each type of card: Manager, Engineer, and Intern.
-const managerCard = `
+var managerCard = `
 <!--Employee card for a manager-->
 <div class="column is-3 ml-0" id="manager-card">
     <div class="card" >
@@ -224,7 +224,7 @@ const managerCard = `
 </div>
 `
 
-const engineerCard = `
+var engineerCard = `
 <!--Employee card for an engineer-->
 <div class="column is-3 ml-0" id="engineer-card">
     <div class="card">
@@ -258,7 +258,7 @@ const engineerCard = `
 </div>
 `
 
-const internCard = `
+var internCard = `
 <!--Employee card for an intern-->
 <div class="column is-3 ml-0" id="intern-card">
     <div class="card">
@@ -305,16 +305,17 @@ function cardType(allEmployees) {
 */
 
 function cardType(newArr) {
-  newArr=allEmployees
- console.log('here is newArr:', newArr)
- if (newArr.role == "Manager") {
-   var card = managerCard;
- } else if (newArr.role == "Engineer") {
-   var card = engineerCard;
- } else if (newArr.role == "Intern") {
-   var card = internCard;
- }
- return card;
+  newArr=allEmployees;
+  console.log('here is newArr:', newArr) // JRM: Remove this later.
+  if (newArr.role == "Manager") {
+    var card = managerCard;
+  } else if (newArr.role == "Engineer") {
+    var card = engineerCard;
+  } else if (newArr.role == "Intern") {
+    var card = internCard;
+  }
+  console.log(card);
+  return card;
 }
 
 

@@ -7,19 +7,20 @@ class Employee {
       this.email = email;
     }
     getRole(){
-      console.log(this.answers.role, 'Role received')
+      console.log(this.answers.role, 'Role received');
+      return 'Employee';
     }
     getName(){
-      console.log(this.answers.eeName, 'Name received')
+      console.log(this.answers.eeName, 'Name received');
     }
     getId(){
-      console.log(this.answers.id, 'ID received')
+      console.log(this.answers.id, 'ID received');
     }
     getEmail(){
-      console.log(this.answers.email, 'Email received')
+      console.log(this.answers.email, 'Email received');
     }
 
-  }
+}
 
 
 
