@@ -18,9 +18,15 @@ const initialPrompt = () => {
   ])
   .then((answers) => {
     if (answers.additionalTeam == "Yes") {
+      fs.writeFileSync('index.html', generateHTMLStart())
+      .then(() => console.log('Successfully wrote to index.html'))
+      .catch((err) => console.error(err));
       return enterMore();
     } else if (answers.additionalTeam == "No") {
       console.log(allEmployees);
+      fs.appendFileSync('index.html', generateHTMLEnd(answers))
+      .then(() => console.log('Successfully wrote to index.html'))
+      .catch((err) => console.error(err));
       return;
     }
   });
@@ -87,6 +93,9 @@ const promptManager = () => {
     } else if (answers.role == "Manager"){
         const manager = new Manager(answers.role, answers.eeName, answers.mgrname, answers.id, answers.email, answers.officeNumber);
         allEmployees.push(manager);
+        fs.appendFileSync('index.html', managerCard(manager))
+        .then(() => console.log('Successfully wrote to index.html'))
+        .catch((err) => console.error(err));
         return initialPrompt();
     }
   });
@@ -139,6 +148,9 @@ const promptEngineer = () => {
     } else if (answers.role == "Engineer"){
         const engineer = new Engineer(answers.role, answers.eeName, answers.mgrname, answers.id, answers.email, answers.github, answers.githubUrl);
         allEmployees.push(engineer);
+        fs.appendFileSync('index.html', engineerCard(engineer))
+        .then(() => console.log('Successfully wrote to index.html'))
+        .catch((err) => console.error(err));
         return initialPrompt();
     }
   });
@@ -185,6 +197,9 @@ const promptIntern = () => {
     } else if (answers.role == "Intern"){
         const intern = new Intern(answers.role, answers.eeName, answers.mgrname, answers.id, answers.email, answers.school);
         allEmployees.push(intern);
+        fs.appendFileSync('index.html', internCard(intern))
+        .then(() => console.log('Successfully wrote to index.html'))
+        .catch((err) => console.error(err));
         return initialPrompt();
     }
   });
@@ -192,7 +207,8 @@ const promptIntern = () => {
 
 
 // JRM: Const variables for each type of card: Manager, Engineer, and Intern.
-var managerCard = `
+const managerCard = (allEmployees) =>
+`
 <!--Employee card for a manager-->
 <div class="column is-3 ml-0" id="manager-card">
     <div class="card" >
@@ -224,7 +240,8 @@ var managerCard = `
 </div>
 `
 
-var engineerCard = `
+const engineerCard = (allEmployees) =>
+`
 <!--Employee card for an engineer-->
 <div class="column is-3 ml-0" id="engineer-card">
     <div class="card">
@@ -258,7 +275,8 @@ var engineerCard = `
 </div>
 `
 
-var internCard = `
+const internCard = (allEmployees) =>
+`
 <!--Employee card for an intern-->
 <div class="column is-3 ml-0" id="intern-card">
     <div class="card">
@@ -319,9 +337,8 @@ function cardType(newArr) {
 }
 */
 
-
+/*
   const generateHTML = (allEmployees) =>
-  // JRM: Might need to also do if/then statements to return different HTML based on whether engineer, manager, or intern cards need to be created.
   `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -340,7 +357,6 @@ function cardType(newArr) {
     <section class="container">
         <div class="columns ml-0">
 
-        ${cardType(allEmployees)}
         
 
         </div>
@@ -351,13 +367,63 @@ function cardType(newArr) {
 
 
 `;
+*/
+
+
+const generateHTMLStart = (allEmployees) =>
+`<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!--Bulma CSS framework link-->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css"> </link>
+  <title>My Team</title>
+</head>
+
+<body>
+  <section class="section box is-size-1 has-text-centered has-background-info has-text-weight-bold has-text-white">
+      My Team
+  </section>
+  <section class="container">
+      <div class="columns ml-0">
+
+      
+
+`;
+
+
+const generateHTMLEnd = (allEmployees) =>
+`
+      </div>
+
+  </section>
+</body>
+</html>
+
+
+`;
+
+
+
+
+
+
+
+
+
+
+
 
 const init = () => {
   initialPrompt()
+  
     // JRM: Try splitting-out the writing parts. For example, the initial part of the HTML is written first (everything before the employee cards), then use "fs.appendFile()"" to write each EE card (put at the end of promptManager/promptEngineer/promptIntern), and then write/append the end of the HTML to close it up.
-    .then((answers) => fs.writeFileSync('index.html', generateHTML(answers)))
+    
+    /*.then((answers) => fs.writeFileSync('index.html', generateHTML(answers)))
     .then(() => console.log('Successfully wrote to index.html'))
-    .catch((err) => console.error(err));
+    .catch((err) => console.error(err)); */
 };
 
 init();
