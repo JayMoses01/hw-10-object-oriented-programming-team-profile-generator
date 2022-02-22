@@ -4,7 +4,10 @@ const Employee = require('./Employee.js')
 const Manager = require('./Manager.js')
 const Engineer = require('./Engineer.js')
 const Intern = require('./Intern.js')
-var allEmployees = [];
+//var allEmployees = [];
+
+
+
 
 
 const initialPrompt = () => {
@@ -18,12 +21,20 @@ const initialPrompt = () => {
   ])
   .then((answers) => {
     if (answers.additionalTeam == "Yes") {
-      fs.writeFileSync('index.html', generateHTMLStart())
-      console.log('Successfully wrote to index.html')
+      //fs.writeFileSync('index.html', generateHTMLStart())
+      //console.log('Successfully wrote to index.html')
       //console.error(err);
       return enterMore();
     } else if (answers.additionalTeam == "No") {
       console.log(allEmployees);
+      fs.writeFileSync('index.html', generateHTMLStart())
+      // For loop
+      var allEmployees = []; 
+      for (var i = 0; i >= allEmployees.length; i++) { //JRM: NEXT STEP: build this for loop
+        allEmployees
+
+        fs.appendFileSync('index.html', managerCard(manager))
+      }
       fs.appendFileSync('index.html', generateHTMLEnd())
       console.log('Successfully wrote to index.html')
       //console.error(err);
