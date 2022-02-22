@@ -19,14 +19,14 @@ const initialPrompt = () => {
   .then((answers) => {
     if (answers.additionalTeam == "Yes") {
       fs.writeFileSync('index.html', generateHTMLStart())
-      .then(() => console.log('Successfully wrote to index.html'))
-      .catch((err) => console.error(err));
+      console.log('Successfully wrote to index.html')
+      //console.error(err);
       return enterMore();
     } else if (answers.additionalTeam == "No") {
       console.log(allEmployees);
-      fs.appendFileSync('index.html', generateHTMLEnd(answers))
-      .then(() => console.log('Successfully wrote to index.html'))
-      .catch((err) => console.error(err));
+      fs.appendFileSync('index.html', generateHTMLEnd())
+      console.log('Successfully wrote to index.html')
+      //console.error(err);
       return;
     }
   });
@@ -94,8 +94,8 @@ const promptManager = () => {
         const manager = new Manager(answers.role, answers.eeName, answers.mgrname, answers.id, answers.email, answers.officeNumber);
         allEmployees.push(manager);
         fs.appendFileSync('index.html', managerCard(manager))
-        .then(() => console.log('Successfully wrote to index.html'))
-        .catch((err) => console.error(err));
+        console.log('Successfully wrote to index.html')
+        //.catch((err) => console.error(err));
         return initialPrompt();
     }
   });
@@ -149,8 +149,8 @@ const promptEngineer = () => {
         const engineer = new Engineer(answers.role, answers.eeName, answers.mgrname, answers.id, answers.email, answers.github, answers.githubUrl);
         allEmployees.push(engineer);
         fs.appendFileSync('index.html', engineerCard(engineer))
-        .then(() => console.log('Successfully wrote to index.html'))
-        .catch((err) => console.error(err));
+        console.log('Successfully wrote to index.html')
+        //.catch((err) => console.error(err));
         return initialPrompt();
     }
   });
@@ -198,8 +198,8 @@ const promptIntern = () => {
         const intern = new Intern(answers.role, answers.eeName, answers.mgrname, answers.id, answers.email, answers.school);
         allEmployees.push(intern);
         fs.appendFileSync('index.html', internCard(intern))
-        .then(() => console.log('Successfully wrote to index.html'))
-        .catch((err) => console.error(err));
+        console.log('Successfully wrote to index.html')
+        //.catch((err) => console.error(err));
         return initialPrompt();
     }
   });
@@ -418,7 +418,7 @@ const generateHTMLEnd = (allEmployees) =>
 
 const init = () => {
   initialPrompt()
-  
+
     // JRM: Try splitting-out the writing parts. For example, the initial part of the HTML is written first (everything before the employee cards), then use "fs.appendFile()"" to write each EE card (put at the end of promptManager/promptEngineer/promptIntern), and then write/append the end of the HTML to close it up.
     
     /*.then((answers) => fs.writeFileSync('index.html', generateHTML(answers)))
