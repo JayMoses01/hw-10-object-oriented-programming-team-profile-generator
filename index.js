@@ -214,7 +214,7 @@ const managerCard = (allEmployees) =>
     <div class="card" >
         <header class="card-header has-background-grey-light">
           <p class="card-header-title is-size-2">
-            ${allEmployees.name}
+            ${allEmployees.eeName}
           </p>
 
         </header>
@@ -247,7 +247,7 @@ const engineerCard = (allEmployees) =>
     <div class="card">
         <header class="card-header has-background-grey-light">
           <p class="card-header-title is-size-2">
-            ${allEmployees.name}
+            ${allEmployees.eeName}
           </p>
 
         </header>
@@ -282,7 +282,7 @@ const internCard = (allEmployees) =>
     <div class="card">
         <header class="card-header has-background-grey-light">
           <p class="card-header-title is-size-2">
-            ${allEmployees.name}
+            ${allEmployees.eeName}
           </p>
 
         </header>
