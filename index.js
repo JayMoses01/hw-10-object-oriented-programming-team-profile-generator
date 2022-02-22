@@ -291,7 +291,7 @@ var internCard = `
       </div>
 </div>
 `
-/*
+
 function cardType(allEmployees) {
   if (allEmployees.role == "Manager") {
     var card = managerCard;
@@ -302,8 +302,8 @@ function cardType(allEmployees) {
   }
   return card;
 }
-*/
 
+/*
 function cardType(newArr) {
   newArr=allEmployees;
   console.log('here is newArr:', newArr) // JRM: Remove this later.
@@ -317,10 +317,10 @@ function cardType(newArr) {
   console.log(card);
   return card;
 }
+*/
 
 
-
-  const generateHTML = (newArr) =>
+  const generateHTML = (allEmployees) =>
   // JRM: Might need to also do if/then statements to return different HTML based on whether engineer, manager, or intern cards need to be created.
   `<!DOCTYPE html>
 <html lang="en">
@@ -340,7 +340,7 @@ function cardType(newArr) {
     <section class="container">
         <div class="columns ml-0">
 
-        ${cardType(newArr)}
+        ${cardType(allEmployees)}
         
 
         </div>
@@ -354,6 +354,7 @@ function cardType(newArr) {
 
 const init = () => {
   initialPrompt()
+    // JRM: Try splitting-out the writing parts. For example, the initial part of the HTML is written first (everything before the employee cards), then use "fs.appendFile()"" to write each EE card (put at the end of promptManager/promptEngineer/promptIntern), and then write/append the end of the HTML to close it up.
     .then((answers) => fs.writeFileSync('index.html', generateHTML(answers)))
     .then(() => console.log('Successfully wrote to index.html'))
     .catch((err) => console.error(err));
