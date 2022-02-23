@@ -1,5 +1,6 @@
 const Employee = require('./Employee.js')
 
+// JRM: Intern class
 class Intern extends Employee {
     constructor(role, eeName, mgrname, id, email, school) {
         super(role, eeName, mgrname, id, email);
@@ -11,24 +12,4 @@ class Intern extends Employee {
     }
 }
 
-
-
-
-
-//intern.getSchool();
-
-
-
-
-
-
-
 module.exports = Intern;
-
-
-
-
-
-
-
-

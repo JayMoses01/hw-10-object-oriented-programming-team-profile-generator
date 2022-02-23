@@ -1,5 +1,6 @@
 const Employee = require('./Employee.js')
 
+// JRM: Engineer class
 class Engineer extends Employee {
     constructor(role, eeName, mgrname, id, email, github, githubUrl) {
         super(role, eeName, mgrname, id, email);
@@ -12,24 +13,4 @@ class Engineer extends Employee {
     }
 }
 
-
-
-/*
-engineer.getGithub();
-engineer.getRole();
-*/
-
-
-
-
-
-
-
-
-
 module.exports = Engineer;
-
-
-
-
-

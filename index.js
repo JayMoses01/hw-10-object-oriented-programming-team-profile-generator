@@ -7,9 +7,7 @@ const Intern = require('./Intern.js')
 var allEmployees = [];
 var fullCards = '';
 
-
-
-
+// JRM: This is the initial prompt--the answer to which leads either to the next questions or allows the user to exit the application and generate the HTML file.
 const initialPrompt = () => {
   return inquirer.prompt([
     {
@@ -24,21 +22,22 @@ const initialPrompt = () => {
       return enterMore();
     } else if (answers.additionalTeam == "No") {
 
+      // JRM: This for loop takes the entered employees and creates team cards for them containing their infromation.
       for (var i = 0; i < allEmployees.length; i++) {
 
         fullCards += allCard(allEmployees[i])
-        console.log(allEmployees[i])
         
       }
 
+      // JRM: Once the employee/team cards have been created, the HTML file is written.
       fs.writeFileSync('index.html', generateHTML(fullCards))
       console.log('Successfully wrote to index.html')
-      //console.error(err);
+
     }
   });
 };
 
-
+// JRM: If the user decided to create one or more tem members, they are prompted for the employee role, which leads them to different questions sets based on their selection. 
 const enterMore = () => {
     return inquirer.prompt([
       {
@@ -59,6 +58,7 @@ const enterMore = () => {
   });
 };
 
+// JRM: The question set for the Manager role. The answers are passed into the Manager class and the manager is added to the allEmployees array.
 const promptManager = () => {
   return inquirer.prompt([
     {
@@ -101,6 +101,7 @@ const promptManager = () => {
   });
 };
 
+// JRM: The question set for the Engineer role. The answers are passed into the Engineer class and the engineer is added to the allEmployees array.
 const promptEngineer = () => {
   return inquirer.prompt([
     {
@@ -154,6 +155,7 @@ const promptEngineer = () => {
   });
 };
 
+// JRM: The question set for the Intern role. The answers are passed into the Intern class and the intern is added to the allEmployees array.
 const promptIntern = () => {
   return inquirer.prompt([
     {
@@ -201,6 +203,7 @@ const promptIntern = () => {
   });
 };
 
+// JRM: This function builds all of the employee/team information cards.
 let allCard = (emp) => {
 return `
 <!--Employee card for all employee types: Manager/Engineer/Intern-->
@@ -241,6 +244,7 @@ return `
 `
 }
 
+// JRM: This is the function containing the HTML code along with the employee information card placeholder (template literal).
   const generateHTML = (cards) =>
   `<!DOCTYPE html>
 <html lang="en">
@@ -271,11 +275,10 @@ return `
 
 `;
 
+// This function triggers all user prompts upon running "node index.js" from the command line.
 const init = () => {
   initialPrompt()
 };
 
+// This function calls the "init()" function to start the initial prompt.
 init();
-
-
-
