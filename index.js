@@ -5,7 +5,7 @@ const Manager = require('./Manager.js')
 const Engineer = require('./Engineer.js')
 const Intern = require('./Intern.js')
 var allEmployees = [];
-
+var fullCards = '';
 
 
 
@@ -26,7 +26,7 @@ const initialPrompt = () => {
       //console.error(err);
       return enterMore();
     } else if (answers.additionalTeam == "No") {
-      console.log(allEmployees);
+      //console.log(allEmployees);
       //fs.writeFileSync('index.html', generateHTMLStart())
       // For loop
       //var allEmployees = []; 
@@ -53,13 +53,25 @@ const initialPrompt = () => {
         //fs.writeFileSync('index.html', generateHTMLStart(allCard(allEmployees[i])(generateHTMLEnd())))
         //console.log('Successfully wrote to index.html')
 
+        fullCards += allCard(allEmployees[i])
+        console.log(allEmployees[i])
 
-
-        fs.writeFileSync('index.html', generateHTML(allEmployees[i]))
-        console.log('Successfully wrote to index.html')
-        //console.error(err);
 
       }
+
+      fs.writeFileSync('index.html', generateHTML(fullCards))
+      console.log('Successfully wrote to index.html')
+      //console.error(err);
+
+
+        //fs.writeFileSync('index.html', generateHTML(allEmployees))
+        //console.log(generateHTML(allEmployees));
+        //console.log('Successfully wrote to index.html')
+        //console.error(err);
+
+
+
+
 
       //const response = await fetch()
 
@@ -86,7 +98,7 @@ const initialPrompt = () => {
       asyncCall();
       */
 
-      return;
+      return allCard();
     }
   });
 };
@@ -373,40 +385,42 @@ let internCard = () =>
 `
 */
 
-let allCard = (allEmployees) =>
-`
+let allCard = (emp) => {
+console.log(emp.eeName)
+return `
 <!--Employee card for all employee types: Manager/Engineer/Intern-->
 <div class="column is-3 ml-0" id="intern-card">
     <div class="card">
         <header class="card-header has-background-grey-light">
           <p class="card-header-title is-size-2">
-            ${allEmployees.eeName}
+            ${emp.eeName}
           </p>
 
         </header>
         <div class="card-content">
             <p class="subtitle is-size-3 has-text-weight-bold">
-                ${allEmployees.role}
+                ${emp.role}
               </p>
             <div class="content" id="team-mgr-name">
-            Team manager's name: ${allEmployees.mgrname}
+            Team manager's name: ${emp.mgrname}
             </div>
           <div class="content" id="id">
-            ID: ${allEmployees.id}
+            ID: ${emp.id}
           </div>
           <div class="content" id="email">
-            Email: ${allEmployees.email}
+            Email: ${emp.email}
           </div>
           <div class="content" id="office-number">
             Office number: 
           </div>
           <div class="content" id="school">
-            School: ${allEmployees.school}
+            School: ${emp.school}
           </div>
         </div>
       </div>
 </div>
 `
+}
 
 
 
