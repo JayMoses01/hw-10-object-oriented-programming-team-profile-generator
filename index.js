@@ -4,7 +4,7 @@ const Employee = require('./Employee.js')
 const Manager = require('./Manager.js')
 const Engineer = require('./Engineer.js')
 const Intern = require('./Intern.js')
-//var allEmployees = [];
+var allEmployees = [];
 
 
 
@@ -27,21 +27,71 @@ const initialPrompt = () => {
       return enterMore();
     } else if (answers.additionalTeam == "No") {
       console.log(allEmployees);
-      fs.writeFileSync('index.html', generateHTMLStart())
+      //fs.writeFileSync('index.html', generateHTMLStart())
       // For loop
-      var allEmployees = []; 
-      for (var i = 0; i >= allEmployees.length; i++) { //JRM: NEXT STEP: build this for loop
-        allEmployees
+      //var allEmployees = []; 
+      for (var i = 0; i <= allEmployees.length; i++) {
+        //allEmployees[i]
+        
+        /*
+        if (allEmployees.role == "Manager"){
+          fs.appendFile('index.html', managerCard(allEmployees[i]))
+        } else if (allEmployees.role == "Engineer"){
+          fs.appendFile('index.html', engineerCard(allEmployees[i]))
+        } else if (allEmployees.role == "Intern"){
+          fs.appendFile('index.html', internCard(allEmployees[i]))
+        }
+        */
 
-        fs.appendFileSync('index.html', managerCard(manager))
+        /*
+        fs.writeFileSync('index.html', generateHTMLStart())
+        fs.appendFileSync('index.html', allCard(allEmployees))
+        fs.appendFileSync('index.html', generateHTMLEnd())
+        console.log('Successfully wrote to index.html') */
+        //console.error(err);
+
+        //fs.writeFileSync('index.html', generateHTMLStart(allCard(allEmployees[i])(generateHTMLEnd())))
+        //console.log('Successfully wrote to index.html')
+
+
+
+        fs.writeFileSync('index.html', generateHTML(allEmployees[i]))
+        console.log('Successfully wrote to index.html')
+        //console.error(err);
+
       }
-      fs.appendFileSync('index.html', generateHTMLEnd())
-      console.log('Successfully wrote to index.html')
-      //console.error(err);
+
+      //const response = await fetch()
+
+      /*
+      function resolveAfter2Seconds() {
+        return new Promise(resolve => {
+          setTimeout(() => {
+            resolve('resolved');
+          }, 5000);
+        });
+      }
+
+      async function asyncCall() {
+        console.log('calling');
+        const result = await resolveAfter2Seconds();
+        fs.appendFileSync('index.html', generateHTMLEnd())
+        console.log('Successfully wrote to index.html')
+        //console.error(err);
+        console.log(result);
+
+        // expected output: "resolved"
+      }
+      
+      asyncCall();
+      */
+
       return;
     }
   });
 };
+
+//async/await so it waits for the cards to write before writing the end.
 
 const enterMore = () => {
     return inquirer.prompt([
@@ -102,10 +152,10 @@ const promptManager = () => {
     if (answers.role !== "Manager"){
       return initialPrompt();
     } else if (answers.role == "Manager"){
-        const manager = new Manager(answers.role, answers.eeName, answers.mgrname, answers.id, answers.email, answers.officeNumber);
+        let manager = new Manager(answers.role, answers.eeName, answers.mgrname, answers.id, answers.email, answers.officeNumber);
         allEmployees.push(manager);
-        fs.appendFileSync('index.html', managerCard(manager))
-        console.log('Successfully wrote to index.html')
+        //fs.appendFileSync('index.html', managerCard(manager))
+        //console.log('Successfully wrote to index.html')
         //.catch((err) => console.error(err));
         return initialPrompt();
     }
@@ -157,10 +207,10 @@ const promptEngineer = () => {
     if (answers.role !== "Engineer"){
       return initialPrompt();
     } else if (answers.role == "Engineer"){
-        const engineer = new Engineer(answers.role, answers.eeName, answers.mgrname, answers.id, answers.email, answers.github, answers.githubUrl);
+        let engineer = new Engineer(answers.role, answers.eeName, answers.mgrname, answers.id, answers.email, answers.github, answers.githubUrl);
         allEmployees.push(engineer);
-        fs.appendFileSync('index.html', engineerCard(engineer))
-        console.log('Successfully wrote to index.html')
+        //fs.appendFileSync('index.html', engineerCard(engineer))
+        //console.log('Successfully wrote to index.html')
         //.catch((err) => console.error(err));
         return initialPrompt();
     }
@@ -206,10 +256,10 @@ const promptIntern = () => {
     if (answers.role !== "Intern"){
       return initialPrompt();
     } else if (answers.role == "Intern"){
-        const intern = new Intern(answers.role, answers.eeName, answers.mgrname, answers.id, answers.email, answers.school);
+        let intern = new Intern(answers.role, answers.eeName, answers.mgrname, answers.id, answers.email, answers.school);
         allEmployees.push(intern);
-        fs.appendFileSync('index.html', internCard(intern))
-        console.log('Successfully wrote to index.html')
+        //fs.appendFileSync('index.html', internCard(intern))
+        //console.log('Successfully wrote to index.html')
         //.catch((err) => console.error(err));
         return initialPrompt();
     }
@@ -218,7 +268,8 @@ const promptIntern = () => {
 
 
 // JRM: Const variables for each type of card: Manager, Engineer, and Intern.
-const managerCard = (allEmployees) =>
+/*
+let managerCard = () =>
 `
 <!--Employee card for a manager-->
 <div class="column is-3 ml-0" id="manager-card">
@@ -251,7 +302,7 @@ const managerCard = (allEmployees) =>
 </div>
 `
 
-const engineerCard = (allEmployees) =>
+let engineerCard = () =>
 `
 <!--Employee card for an engineer-->
 <div class="column is-3 ml-0" id="engineer-card">
@@ -286,7 +337,7 @@ const engineerCard = (allEmployees) =>
 </div>
 `
 
-const internCard = (allEmployees) =>
+let internCard = () =>
 `
 <!--Employee card for an intern-->
 <div class="column is-3 ml-0" id="intern-card">
@@ -320,7 +371,47 @@ const internCard = (allEmployees) =>
       </div>
 </div>
 `
+*/
 
+let allCard = (allEmployees) =>
+`
+<!--Employee card for all employee types: Manager/Engineer/Intern-->
+<div class="column is-3 ml-0" id="intern-card">
+    <div class="card">
+        <header class="card-header has-background-grey-light">
+          <p class="card-header-title is-size-2">
+            ${allEmployees.eeName}
+          </p>
+
+        </header>
+        <div class="card-content">
+            <p class="subtitle is-size-3 has-text-weight-bold">
+                ${allEmployees.role}
+              </p>
+            <div class="content" id="team-mgr-name">
+            Team manager's name: ${allEmployees.mgrname}
+            </div>
+          <div class="content" id="id">
+            ID: ${allEmployees.id}
+          </div>
+          <div class="content" id="email">
+            Email: ${allEmployees.email}
+          </div>
+          <div class="content" id="office-number">
+            Office number: 
+          </div>
+          <div class="content" id="school">
+            School: ${allEmployees.school}
+          </div>
+        </div>
+      </div>
+</div>
+`
+
+
+
+
+/*
 function cardType(allEmployees) {
   if (allEmployees.role == "Manager") {
     var card = managerCard;
@@ -331,7 +422,7 @@ function cardType(allEmployees) {
   }
   return card;
 }
-
+*/
 /*
 function cardType(newArr) {
   newArr=allEmployees;
@@ -348,7 +439,7 @@ function cardType(newArr) {
 }
 */
 
-/*
+
   const generateHTML = (allEmployees) =>
   `<!DOCTYPE html>
 <html lang="en">
@@ -368,7 +459,7 @@ function cardType(newArr) {
     <section class="container">
         <div class="columns ml-0">
 
-        
+        ${allCard(allEmployees)}
 
         </div>
 
@@ -378,7 +469,7 @@ function cardType(newArr) {
 
 
 `;
-*/
+
 
 
 const generateHTMLStart = (allEmployees) =>
@@ -416,17 +507,6 @@ const generateHTMLEnd = (allEmployees) =>
 
 `;
 
-
-
-
-
-
-
-
-
-
-
-
 const init = () => {
   initialPrompt()
 
@@ -438,12 +518,6 @@ const init = () => {
 };
 
 init();
-
-
-
-
-
-
 
 
 
